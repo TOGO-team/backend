@@ -1,0 +1,1 @@
+package com.togoteam.gotogether.domain.user.dto;
