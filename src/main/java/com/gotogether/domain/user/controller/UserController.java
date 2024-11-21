@@ -1,4 +1,4 @@
-package com.togoteam.gotogether.domain.user.controller;
+package com.gotogether.domain.user.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 

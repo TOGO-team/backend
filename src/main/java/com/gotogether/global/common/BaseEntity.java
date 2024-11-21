@@ -1,4 +1,4 @@
-package com.togoteam.gotogether.global.common;
+package com.gotogether.global.common;
 
 import java.time.LocalDateTime;
 

@@ -1,4 +1,4 @@
-package com.togoteam.gotogether.domain.user.service;
+package com.gotogether.domain.user.service;
 
 import org.springframework.stereotype.Service;
 
