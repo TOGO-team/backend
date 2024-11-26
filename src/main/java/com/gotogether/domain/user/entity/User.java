@@ -1,6 +1,6 @@
-package com.togoteam.gotogether.domain.user.entity;
+package com.gotogether.domain.user.entity;
 
-import com.togoteam.gotogether.global.common.BaseEntity;
+import com.gotogether.global.common.BaseEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

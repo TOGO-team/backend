@@ -1,4 +1,4 @@
-package com.togoteam.gotogether;
+package com.gotogether;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

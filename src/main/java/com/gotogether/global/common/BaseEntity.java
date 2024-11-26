@@ -1,4 +1,4 @@
-package com.togoteam.gotogether.global.common;
+package com.gotogether.global.common;
 
 import java.time.LocalDateTime;
 
@@ -25,5 +25,5 @@ public class BaseEntity {
 	private LocalDateTime updatedAt;
 
 	@Column(name = "is_deleted",  columnDefinition = "bit(1) default 0")
-	private boolean deleted;
+	private boolean isDeleted;
 }
