@@ -1,6 +1,7 @@
 package com.gotogether.domain.ticketqrcode.entity;
 
 import com.gotogether.domain.ticket.entity.Ticket;
+import com.gotogether.global.common.BaseEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "ticket_qr_code")
-public class TicketQrCode {
+public class TicketQrCode extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

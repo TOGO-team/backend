@@ -3,6 +3,7 @@ package com.gotogether.domain.alert.entity;
 import java.time.LocalDateTime;
 
 import com.gotogether.domain.event.entity.Event;
+import com.gotogether.global.common.BaseEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,7 +23,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "alert")
-public class Alert {
+public class Alert extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

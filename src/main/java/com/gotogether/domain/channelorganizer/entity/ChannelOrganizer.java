@@ -2,6 +2,7 @@ package com.gotogether.domain.channelorganizer.entity;
 
 import com.gotogether.domain.hostchannel.entity.HostChannel;
 import com.gotogether.domain.user.entity.User;
+import com.gotogether.global.common.BaseEntity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -20,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "channel_organizer")
-public class ChannelOrganizer {
+public class ChannelOrganizer extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

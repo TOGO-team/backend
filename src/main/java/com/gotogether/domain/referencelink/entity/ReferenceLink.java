@@ -1,6 +1,7 @@
 package com.gotogether.domain.referencelink.entity;
 
 import com.gotogether.domain.event.entity.Event;
+import com.gotogether.global.common.BaseEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "reference_link")
-public class ReferenceLink {
+public class ReferenceLink extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
