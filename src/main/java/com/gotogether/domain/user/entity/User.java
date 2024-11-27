@@ -1,22 +1,28 @@
 package com.gotogether.domain.user.entity;
 
+import java.util.List;
+
+import com.gotogether.domain.card.entity.Card;
+import com.gotogether.domain.channelorganizer.entity.ChannelOrganizer;
+import com.gotogether.domain.like.entity.Like;
 import com.gotogether.global.common.BaseEntity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Table(name = "user")
 public class User extends BaseEntity {
 
@@ -32,4 +38,20 @@ public class User extends BaseEntity {
 
 	@Column(name = "email", nullable = false)
 	private String email;
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+	private List<Card> cards;
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+	private List<Like> likes;
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+	private List<ChannelOrganizer> channelOrganizers;
+
+	@Builder
+	public User(String name, String phoneNumber, String email) {
+		this.name = name;
+		this.phoneNumber = phoneNumber;
+		this.email = email;
+	}
 }
