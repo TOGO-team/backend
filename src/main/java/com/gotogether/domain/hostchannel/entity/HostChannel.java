@@ -1,19 +1,18 @@
-package com.gotogether.domain.user.entity;
+package com.gotogether.domain.hostchannel.entity;
 
 import java.util.List;
 
-import com.gotogether.domain.card.entity.Card;
 import com.gotogether.domain.channelorganizer.entity.ChannelOrganizer;
-import com.gotogether.domain.like.entity.Like;
+import com.gotogether.domain.event.entity.Event;
 import com.gotogether.global.common.BaseEntity;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -23,8 +22,8 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "user")
-public class User extends BaseEntity {
+@Table(name = "host_channel")
+public class HostChannel extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,25 +32,26 @@ public class User extends BaseEntity {
 	@Column(name = "name", nullable = false)
 	private String name;
 
-	@Column(name = "phone_number", nullable = false)
-	private String phoneNumber;
-
 	@Column(name = "email", nullable = false)
 	private String email;
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
-	private List<Card> cards;
+	@Column(name = "description", nullable = false)
+	private String description;
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
-	private List<Like> likes;
+	@Column(name = "profile_image_url", nullable = false)
+	private String profileImageUrl;
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+	@OneToOne(mappedBy = "hostChannel")
+	private Event event;
+
+	@OneToMany(mappedBy = "hostChannel")
 	private List<ChannelOrganizer> channelOrganizers;
 
 	@Builder
-	public User(String name, String phoneNumber, String email) {
+	public HostChannel(String name, String email, String description, String profileImageUrl) {
 		this.name = name;
-		this.phoneNumber = phoneNumber;
 		this.email = email;
+		this.description = description;
+		this.profileImageUrl = profileImageUrl;
 	}
 }
