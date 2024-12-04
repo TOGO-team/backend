@@ -1,4 +1,4 @@
-package com.gotogether.domain.like.entity;
+package com.gotogether.domain.bookmark.entity;
 
 import com.gotogether.domain.user.entity.User;
 import com.gotogether.global.common.BaseEntity;
@@ -18,8 +18,8 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "like")
-public class Like extends BaseEntity {
+@Table(name = "bookmark")
+public class Bookmark extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

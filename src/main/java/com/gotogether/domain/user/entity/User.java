@@ -2,9 +2,9 @@ package com.gotogether.domain.user.entity;
 
 import java.util.List;
 
+import com.gotogether.domain.bookmark.entity.Bookmark;
 import com.gotogether.domain.card.entity.Card;
 import com.gotogether.domain.channelorganizer.entity.ChannelOrganizer;
-import com.gotogether.domain.like.entity.Like;
 import com.gotogether.global.common.BaseEntity;
 
 import jakarta.persistence.CascadeType;
@@ -43,7 +43,7 @@ public class User extends BaseEntity {
 	private List<Card> cards;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
-	private List<Like> likes;
+	private List<Bookmark> bookmarks;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<ChannelOrganizer> channelOrganizers;

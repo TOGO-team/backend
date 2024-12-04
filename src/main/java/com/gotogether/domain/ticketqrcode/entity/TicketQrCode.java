@@ -9,6 +9,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
@@ -27,7 +28,7 @@ public class TicketQrCode extends BaseEntity {
 	private Long id;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@Column(name = "ticket_id", nullable = false)
+	@JoinColumn(name = "ticket_id", nullable = false)
 	private Ticket ticket;
 
 	@Column(name = "qr_code_image_url", nullable = false)
