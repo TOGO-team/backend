@@ -5,8 +5,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gotogether.domain.event.dto.request.CreateEventRequestDTO;
+import com.gotogether.domain.event.dto.response.EventDetailResponseDTO;
 import com.gotogether.domain.event.entity.Event;
 import com.gotogether.domain.event.repository.EventRepository;
 import com.gotogether.domain.hashtag.entity.Hashtag;
@@ -58,6 +60,16 @@ public class EventServiceImpl implements EventService {
 
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public EventDetailResponseDTO getDetailEvent(Long eventId) {
+
+		Event event = findEventById(eventId);
+
+		return EventDetailResponseDTO.fromEntity(event);
+
+	}
+
 	private HostChannel getHostChannel(Long hostChannelId) {
 		return hostChannelRepository.findById(hostChannelId)
 			.orElseThrow(() -> new GeneralException(ErrorStatus._HOST_CHANNEL_NOT_FOUND));
@@ -78,5 +90,10 @@ public class EventServiceImpl implements EventService {
 			.collect(Collectors.toList());
 
 		referenceLinkRepository.saveAll(referenceLinkList);
+	}
+
+	private Event findEventById(Long eventId) {
+		return eventRepository.findById(eventId)
+			.orElseThrow(() -> new GeneralException(ErrorStatus._EVENT_NOT_FOUND));
 	}
 }
