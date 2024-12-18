@@ -6,13 +6,13 @@ import com.gotogether.domain.channelorganizer.entity.ChannelOrganizer;
 import com.gotogether.domain.event.entity.Event;
 import com.gotogether.global.common.BaseEntity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -41,10 +41,10 @@ public class HostChannel extends BaseEntity {
 	@Column(name = "profile_image_url", nullable = false)
 	private String profileImageUrl;
 
-	@OneToOne(mappedBy = "hostChannel")
-	private Event event;
+	@OneToMany(mappedBy = "hostChannel", cascade = CascadeType.REMOVE, orphanRemoval = true)
+	private List<Event> events;
 
-	@OneToMany(mappedBy = "hostChannel")
+	@OneToMany(mappedBy = "hostChannel", cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<ChannelOrganizer> channelOrganizers;
 
 	@Builder
