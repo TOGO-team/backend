@@ -64,9 +64,11 @@ public class EventServiceImpl implements EventService {
 	@Transactional(readOnly = true)
 	public EventDetailResponseDTO getDetailEvent(Long eventId) {
 
-		Event event = findEventById(eventId);
+		Event event = getEvent(eventId);
 
-		return EventDetailResponseDTO.fromEntity(event);
+		HostChannel hostChannel = getHostChannel(event.getHostChannel().getId());
+
+		return EventDetailResponseDTO.fromEntity(event, hostChannel);
 
 	}
 
@@ -92,7 +94,7 @@ public class EventServiceImpl implements EventService {
 		referenceLinkRepository.saveAll(referenceLinkList);
 	}
 
-	private Event findEventById(Long eventId) {
+	private Event getEvent(Long eventId) {
 		return eventRepository.findById(eventId)
 			.orElseThrow(() -> new GeneralException(ErrorStatus._EVENT_NOT_FOUND));
 	}
