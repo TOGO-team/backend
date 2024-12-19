@@ -27,20 +27,20 @@ public class ReferenceLink extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "event_id", nullable = false)
-	private Event event;
-
 	@Column(name = "name", nullable = false)
 	private String name;
 
 	@Column(name = "to_go_url", nullable = false)
 	private String toGoUrl;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "event_id", nullable = false)
+	private Event event;
+
 	@Builder
 	public ReferenceLink(Event event, String name, String toGoUrl) {
-		this.event = event;
 		this.name = name;
 		this.toGoUrl = toGoUrl;
+		this.event = event;
 	}
 }
