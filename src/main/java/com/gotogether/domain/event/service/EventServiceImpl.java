@@ -72,6 +72,12 @@ public class EventServiceImpl implements EventService {
 
 	}
 
+	@Override
+	public void deleteEvent(Long eventId) {
+		Event event = getEvent(eventId);
+		eventRepository.delete(event);
+	}
+
 	private HostChannel getHostChannel(Long hostChannelId) {
 		return hostChannelRepository.findById(hostChannelId)
 			.orElseThrow(() -> new GeneralException(ErrorStatus._HOST_CHANNEL_NOT_FOUND));
@@ -95,7 +101,13 @@ public class EventServiceImpl implements EventService {
 	}
 
 	private Event getEvent(Long eventId) {
-		return eventRepository.findById(eventId)
+		Event event = eventRepository.findById(eventId)
 			.orElseThrow(() -> new GeneralException(ErrorStatus._EVENT_NOT_FOUND));
+
+		if (event.isDeleted()) {
+			throw new GeneralException(ErrorStatus._EVENT_ALREADY_DELETED);
+		}
+
+		return event;
 	}
 }

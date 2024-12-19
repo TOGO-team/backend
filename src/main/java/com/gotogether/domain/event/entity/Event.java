@@ -3,6 +3,8 @@ package com.gotogether.domain.event.entity;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.hibernate.annotations.SQLDelete;
+
 import com.gotogether.domain.alert.entity.Alert;
 import com.gotogether.domain.hashtag.entity.Hashtag;
 import com.gotogether.domain.hostchannel.entity.HostChannel;
@@ -29,6 +31,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@SQLDelete(sql = "UPDATE event SET is_deleted = true WHERE id = ?")
 @Table(name = "event")
 public class Event extends BaseEntity {
 

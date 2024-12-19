@@ -1,5 +1,6 @@
 package com.gotogether.domain.event.controller;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,5 +33,11 @@ public class EventController {
 	@GetMapping("{eventId}")
 	public ApiResponse<EventDetailResponseDTO> getDetailEvent(@PathVariable Long eventId) {
 		return ApiResponse.onSuccess(eventService.getDetailEvent(eventId));
+	}
+
+	@DeleteMapping("{eventId}")
+	public ApiResponse<?> deleteEvent(@PathVariable Long eventId) {
+		eventService.deleteEvent(eventId);
+		return ApiResponse.onSuccess("이벤트 삭제 성공");
 	}
 }
