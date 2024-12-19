@@ -33,11 +33,15 @@ public class EventDetailResponseDTO {
 			.map(ReferenceLink::getToGoUrl)
 			.collect(Collectors.toList());
 
+		long ticketCount = event.getTickets().stream()
+			.filter(ticket -> !ticket.isDeleted())
+			.count();
+
 		return EventDetailResponseDTO.builder()
 			.id(event.getId())
 			.bannerImageUrl(event.getBannerImageUrl())
 			.title(event.getTitle())
-			.participantCount(event.getTickets().size())
+			.participantCount((int)ticketCount)
 			.startDate(event.getStartDate())
 			.endDate(event.getEndDate())
 			.location(event.getLocation())
