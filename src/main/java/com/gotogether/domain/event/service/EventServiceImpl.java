@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gotogether.domain.event.converter.EventConverter;
 import com.gotogether.domain.event.dto.request.CreateEventRequestDTO;
 import com.gotogether.domain.event.dto.response.EventDetailResponseDTO;
 import com.gotogether.domain.event.entity.Event;
@@ -63,12 +64,11 @@ public class EventServiceImpl implements EventService {
 	@Override
 	@Transactional(readOnly = true)
 	public EventDetailResponseDTO getDetailEvent(Long eventId) {
-
 		Event event = getEvent(eventId);
 
 		HostChannel hostChannel = getHostChannel(event.getHostChannel().getId());
 
-		return EventDetailResponseDTO.fromEntity(event, hostChannel);
+		return EventConverter.toEventDetailResponseDTO(event, hostChannel);
 
 	}
 
