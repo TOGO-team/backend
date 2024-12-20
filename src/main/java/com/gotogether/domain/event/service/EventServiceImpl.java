@@ -33,21 +33,9 @@ public class EventServiceImpl implements EventService {
 	private final HostChannelRepository hostChannelRepository;
 
 	@Override
-	public void createEvent(CreateEventRequestDTO createEventRequestDTO, Long userId) {
-
-		Event event = Event.builder()
-			.hostChannel(getHostChannel(createEventRequestDTO.getHostChannelId()))
-			.title(createEventRequestDTO.getTitle())
-			.startDate(createEventRequestDTO.getStartDateTime())
-			.endDate(createEventRequestDTO.getEndDateTime())
-			.bannerImageUrl(createEventRequestDTO.getBannerImageUrl())
-			.description(createEventRequestDTO.getDescription())
-			.onlineType(createEventRequestDTO.getOnlineType())
-			.location(createEventRequestDTO.getLocation())
-			.category(createEventRequestDTO.getCategory())
-			.hostEmail(createEventRequestDTO.getHostEmail())
-			.hostPhoneNumber(createEventRequestDTO.getHostPhoneNumber())
-			.build();
+	public Event createEvent(CreateEventRequestDTO createEventRequestDTO) {
+		HostChannel hostChannel = getHostChannel(createEventRequestDTO.getHostChannelId());
+		Event event = EventConverter.of(createEventRequestDTO, hostChannel);
 
 		eventRepository.save(event);
 
@@ -59,23 +47,28 @@ public class EventServiceImpl implements EventService {
 			saveHashtags(event, createEventRequestDTO.getHashtags());
 		}
 
+		return event;
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public EventDetailResponseDTO getDetailEvent(Long eventId) {
 		Event event = getEvent(eventId);
-
 		HostChannel hostChannel = getHostChannel(event.getHostChannel().getId());
 
 		return EventConverter.toEventDetailResponseDTO(event, hostChannel);
-
 	}
 
 	@Override
+	@Transactional
 	public void deleteEvent(Long eventId) {
 		Event event = getEvent(eventId);
 		eventRepository.delete(event);
+	}
+
+	private Event getEvent(Long eventId) {
+		return eventRepository.findById(eventId)
+			.orElseThrow(() -> new GeneralException(ErrorStatus._EVENT_NOT_FOUND));
 	}
 
 	private HostChannel getHostChannel(Long hostChannelId) {
@@ -98,16 +91,5 @@ public class EventServiceImpl implements EventService {
 			.collect(Collectors.toList());
 
 		referenceLinkRepository.saveAll(referenceLinkList);
-	}
-
-	private Event getEvent(Long eventId) {
-		Event event = eventRepository.findById(eventId)
-			.orElseThrow(() -> new GeneralException(ErrorStatus._EVENT_NOT_FOUND));
-
-		if (event.isDeleted()) {
-			throw new GeneralException(ErrorStatus._EVENT_ALREADY_DELETED);
-		}
-
-		return event;
 	}
 }

@@ -2,9 +2,10 @@ package com.gotogether.domain.event.service;
 
 import com.gotogether.domain.event.dto.request.CreateEventRequestDTO;
 import com.gotogether.domain.event.dto.response.EventDetailResponseDTO;
+import com.gotogether.domain.event.entity.Event;
 
 public interface EventService {
-	void createEvent(CreateEventRequestDTO createEventRequestDTO, Long userId);
+	Event createEvent(CreateEventRequestDTO createEventRequestDTO);
 
 	EventDetailResponseDTO getDetailEvent(Long eventId);
 

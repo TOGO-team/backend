@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gotogether.domain.event.dto.request.CreateEventRequestDTO;
 import com.gotogether.domain.event.dto.response.EventDetailResponseDTO;
+import com.gotogether.domain.event.entity.Event;
 import com.gotogether.domain.event.service.EventService;
 import com.gotogether.global.apipayload.ApiResponse;
 
@@ -24,10 +24,9 @@ public class EventController {
 	private final EventService eventService;
 
 	@PostMapping
-	public ApiResponse<?> createEvent(@RequestBody CreateEventRequestDTO dto,
-		@RequestParam("userId") Long userId) {
-		eventService.createEvent(dto, userId);
-		return ApiResponse.onSuccessCreated("이벤트 생성 성공");
+	public ApiResponse<?> createEvent(@RequestBody CreateEventRequestDTO createEventRequestDTO) {
+		Event event = eventService.createEvent(createEventRequestDTO);
+		return ApiResponse.onSuccessCreated("eventId: " + event.getId());
 	}
 
 	@GetMapping("{eventId}")
