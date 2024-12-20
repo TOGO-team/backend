@@ -27,7 +27,7 @@ public class EventController {
 	public ApiResponse<?> createEvent(@RequestBody CreateEventRequestDTO dto,
 		@RequestParam("userId") Long userId) {
 		eventService.createEvent(dto, userId);
-		return ApiResponse.onSuccess("이벤트 생성 성공");
+		return ApiResponse.onSuccessCreated("이벤트 생성 성공");
 	}
 
 	@GetMapping("{eventId}")
