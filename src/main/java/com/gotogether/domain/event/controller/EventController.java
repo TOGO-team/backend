@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gotogether.domain.event.dto.request.CreateEventRequestDTO;
+import com.gotogether.domain.event.dto.request.EventRequestDTO;
 import com.gotogether.domain.event.dto.response.EventDetailResponseDTO;
 import com.gotogether.domain.event.entity.Event;
 import com.gotogether.domain.event.service.EventService;
@@ -24,8 +24,8 @@ public class EventController {
 	private final EventService eventService;
 
 	@PostMapping
-	public ApiResponse<?> createEvent(@RequestBody CreateEventRequestDTO createEventRequestDTO) {
-		Event event = eventService.createEvent(createEventRequestDTO);
+	public ApiResponse<?> createEvent(@RequestBody EventRequestDTO request) {
+		Event event = eventService.createEvent(request);
 		return ApiResponse.onSuccessCreated("eventId: " + event.getId());
 	}
 

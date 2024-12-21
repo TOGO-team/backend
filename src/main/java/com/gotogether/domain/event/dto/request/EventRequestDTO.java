@@ -11,7 +11,7 @@ import com.gotogether.domain.event.entity.OnlineType;
 import lombok.Getter;
 
 @Getter
-public class CreateEventRequestDTO {
+public class EventRequestDTO {
 	@JsonProperty("hostChannelId")
 	private Long hostChannelId;
 

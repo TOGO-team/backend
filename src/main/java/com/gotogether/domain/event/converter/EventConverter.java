@@ -3,7 +3,7 @@ package com.gotogether.domain.event.converter;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.gotogether.domain.event.dto.request.CreateEventRequestDTO;
+import com.gotogether.domain.event.dto.request.EventRequestDTO;
 import com.gotogether.domain.event.dto.response.EventDetailResponseDTO;
 import com.gotogether.domain.event.entity.Event;
 import com.gotogether.domain.hostchannel.entity.HostChannel;
@@ -11,18 +11,18 @@ import com.gotogether.domain.referencelink.entity.ReferenceLink;
 
 public class EventConverter {
 
-	public static Event of(CreateEventRequestDTO createEventRequestDTO, HostChannel hostChannel) {
+	public static Event of(EventRequestDTO request, HostChannel hostChannel) {
 		return Event.builder()
-			.title(createEventRequestDTO.getTitle())
-			.description(createEventRequestDTO.getDescription())
-			.startDate(createEventRequestDTO.getStartDateTime())
-			.endDate(createEventRequestDTO.getEndDateTime())
-			.bannerImageUrl(createEventRequestDTO.getBannerImageUrl())
-			.location(createEventRequestDTO.getLocation())
-			.onlineType(createEventRequestDTO.getOnlineType())
-			.category(createEventRequestDTO.getCategory())
-			.hostEmail(createEventRequestDTO.getHostEmail())
-			.hostPhoneNumber(createEventRequestDTO.getHostPhoneNumber())
+			.title(request.getTitle())
+			.description(request.getDescription())
+			.startDate(request.getStartDateTime())
+			.endDate(request.getEndDateTime())
+			.bannerImageUrl(request.getBannerImageUrl())
+			.location(request.getLocation())
+			.onlineType(request.getOnlineType())
+			.category(request.getCategory())
+			.hostEmail(request.getHostEmail())
+			.hostPhoneNumber(request.getHostPhoneNumber())
 			.hostChannel(hostChannel)
 			.build();
 	}

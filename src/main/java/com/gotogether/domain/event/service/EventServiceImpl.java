@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gotogether.domain.event.converter.EventConverter;
-import com.gotogether.domain.event.dto.request.CreateEventRequestDTO;
+import com.gotogether.domain.event.dto.request.EventRequestDTO;
 import com.gotogether.domain.event.dto.response.EventDetailResponseDTO;
 import com.gotogether.domain.event.entity.Event;
 import com.gotogether.domain.event.repository.EventRepository;
@@ -33,18 +33,19 @@ public class EventServiceImpl implements EventService {
 	private final HostChannelRepository hostChannelRepository;
 
 	@Override
-	public Event createEvent(CreateEventRequestDTO createEventRequestDTO) {
-		HostChannel hostChannel = getHostChannel(createEventRequestDTO.getHostChannelId());
-		Event event = EventConverter.of(createEventRequestDTO, hostChannel);
+	@Transactional
+	public Event createEvent(EventRequestDTO request) {
+		HostChannel hostChannel = getHostChannel(request.getHostChannelId());
+		Event event = EventConverter.of(request, hostChannel);
 
 		eventRepository.save(event);
 
-		if (createEventRequestDTO.getReferenceLinks() != null) {
-			saveReferenceLinks(event, createEventRequestDTO.getReferenceLinks());
+		if (request.getReferenceLinks() != null) {
+			saveReferenceLinks(event, request.getReferenceLinks());
 		}
 
-		if (createEventRequestDTO.getHashtags() != null) {
-			saveHashtags(event, createEventRequestDTO.getHashtags());
+		if (request.getHashtags() != null) {
+			saveHashtags(event, request.getHashtags());
 		}
 
 		return event;
