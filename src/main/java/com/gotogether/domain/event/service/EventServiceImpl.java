@@ -65,6 +65,27 @@ public class EventServiceImpl implements EventService {
 
 	@Override
 	@Transactional
+	public Event updateEvent(Long eventId, EventRequestDTO request) {
+		Event event = getEvent(eventId);
+		event.update(request);
+
+		eventRepository.save(event);
+
+		if (request.getReferenceLinks() != null) {
+			referenceLinkRepository.deleteAll(event.getReferenceLinks());
+			saveReferenceLinks(event, request.getReferenceLinks());
+		}
+
+		if (request.getHashtags() != null) {
+			hashtagRepository.deleteAll(event.getHashtags());
+			saveHashtags(event, request.getHashtags());
+		}
+
+		return event;
+	}
+
+	@Override
+	@Transactional
 	public void deleteEvent(Long eventId) {
 		Event event = getEvent(eventId);
 		eventRepository.delete(event);

@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.annotations.SQLDelete;
 
 import com.gotogether.domain.alert.entity.Alert;
+import com.gotogether.domain.event.dto.request.EventRequestDTO;
 import com.gotogether.domain.hashtag.entity.Hashtag;
 import com.gotogether.domain.hostchannel.entity.HostChannel;
 import com.gotogether.domain.referencelink.entity.ReferenceLink;
@@ -100,5 +101,18 @@ public class Event extends BaseEntity {
 		this.hostEmail = hostEmail;
 		this.hostPhoneNumber = hostPhoneNumber;
 		this.hostChannel = hostChannel;
+	}
+
+	public void update(EventRequestDTO request) {
+		this.title = request.getTitle();
+		this.description = request.getDescription();
+		this.startDate = request.getStartDateTime();
+		this.endDate = request.getEndDateTime();
+		this.bannerImageUrl = request.getBannerImageUrl();
+		this.location = request.getLocation();
+		this.onlineType = request.getOnlineType();
+		this.category = request.getCategory();
+		this.hostEmail = request.getHostEmail();
+		this.hostPhoneNumber = request.getHostPhoneNumber();
 	}
 }

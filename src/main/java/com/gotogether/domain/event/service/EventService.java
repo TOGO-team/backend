@@ -13,6 +13,8 @@ public interface EventService {
 
 	EventDetailResponseDTO getDetailEvent(Long eventId);
 
+	Event updateEvent(Long eventId, EventRequestDTO request);
+
 	void deleteEvent(Long eventId);
 
 	Page<EventListResponseDTO> getEventsByTag(String tags, Pageable pageable);

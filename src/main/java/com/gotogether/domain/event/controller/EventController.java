@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,6 +40,13 @@ public class EventController {
 	@GetMapping("{eventId}")
 	public ApiResponse<EventDetailResponseDTO> getDetailEvent(@PathVariable Long eventId) {
 		return ApiResponse.onSuccess(eventService.getDetailEvent(eventId));
+	}
+
+	@PutMapping("{eventId}")
+	public ApiResponse<?> updateEvent(@PathVariable Long eventId,
+		@RequestBody EventRequestDTO request) {
+		Event event = eventService.updateEvent(eventId, request);
+		return ApiResponse.onSuccess("eventId: " + event.getId());
 	}
 
 	@DeleteMapping("{eventId}")
