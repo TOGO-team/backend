@@ -68,12 +68,12 @@ public class EventServiceImpl implements EventService {
 	}
 
 	private Event getEvent(Long eventId) {
-		return eventRepository.findById(eventId)
+		return eventRepository.findByIdAndIsDeletedFalse(eventId)
 			.orElseThrow(() -> new GeneralException(ErrorStatus._EVENT_NOT_FOUND));
 	}
 
 	private HostChannel getHostChannel(Long hostChannelId) {
-		return hostChannelRepository.findById(hostChannelId)
+		return hostChannelRepository.findByIdAndIsDeletedFalse(hostChannelId)
 			.orElseThrow(() -> new GeneralException(ErrorStatus._HOST_CHANNEL_NOT_FOUND));
 	}
 
