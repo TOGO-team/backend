@@ -4,12 +4,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gotogether.domain.event.converter.EventConverter;
 import com.gotogether.domain.event.dto.request.EventRequestDTO;
 import com.gotogether.domain.event.dto.response.EventDetailResponseDTO;
+import com.gotogether.domain.event.dto.response.EventListResponseDTO;
 import com.gotogether.domain.event.entity.Event;
 import com.gotogether.domain.event.repository.EventRepository;
 import com.gotogether.domain.hashtag.entity.Hashtag;
@@ -65,6 +68,19 @@ public class EventServiceImpl implements EventService {
 	public void deleteEvent(Long eventId) {
 		Event event = getEvent(eventId);
 		eventRepository.delete(event);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Page<EventListResponseDTO> getEventsByTag(String tags, Pageable pageable) {
+		Page<Event> events;
+
+		if (tags.equals("deadline")) {
+			events = eventRepository.findDeadlineEvents(pageable);
+		} else {
+			events = eventRepository.findCurrentEvents(pageable);
+		}
+		return events.map(EventConverter::toEventListResponseDTO);
 	}
 
 	private Event getEvent(Long eventId) {

@@ -5,7 +5,9 @@ import java.util.stream.Collectors;
 
 import com.gotogether.domain.event.dto.request.EventRequestDTO;
 import com.gotogether.domain.event.dto.response.EventDetailResponseDTO;
+import com.gotogether.domain.event.dto.response.EventListResponseDTO;
 import com.gotogether.domain.event.entity.Event;
+import com.gotogether.domain.hashtag.entity.Hashtag;
 import com.gotogether.domain.hostchannel.entity.HostChannel;
 import com.gotogether.domain.referencelink.entity.ReferenceLink;
 
@@ -53,6 +55,20 @@ public class EventConverter {
 			.hostEmail(event.getHostEmail())
 			.hostPhoneNumber(event.getHostPhoneNumber())
 			.referenceLinks(links)
+			.build();
+	}
+
+	public static EventListResponseDTO toEventListResponseDTO(Event event) {
+		return EventListResponseDTO.builder()
+			.id(event.getId())
+			.bannerImageUrl(event.getBannerImageUrl())
+			.title(event.getTitle())
+			.hostChannelName(event.getHostChannel().getName())
+			.startDate(event.getStartDate())
+			.location(event.getLocation())
+			.hashtags(event.getHashtags().stream()
+				.map(Hashtag::getName)
+				.collect(Collectors.toList()))
 			.build();
 	}
 }
