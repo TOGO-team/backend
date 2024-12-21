@@ -98,6 +98,8 @@ public class EventServiceImpl implements EventService {
 
 		if (tags.equals("deadline")) {
 			events = eventRepository.findDeadlineEvents(pageable);
+		} else if (tags.equals("popular")) {
+			events = eventRepository.findPopularEvents(pageable);
 		} else {
 			events = eventRepository.findCurrentEvents(pageable);
 		}
