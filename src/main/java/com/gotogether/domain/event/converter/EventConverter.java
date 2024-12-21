@@ -1,6 +1,6 @@
 package com.gotogether.domain.event.converter;
 
-import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.gotogether.domain.event.dto.request.EventRequestDTO;
@@ -28,9 +28,12 @@ public class EventConverter {
 	}
 
 	public static EventDetailResponseDTO toEventDetailResponseDTO(Event event, HostChannel hostChannel) {
-		List<String> links = event.getReferenceLinks().stream()
-			.map(ReferenceLink::getToGoUrl)
-			.collect(Collectors.toList());
+		Map<String, String> links = event.getReferenceLinks().stream()
+			.filter(link -> !link.isDeleted())
+			.collect(Collectors.toMap(
+				ReferenceLink::getName,
+				ReferenceLink::getToGoUrl
+			));
 
 		long ticketCount = event.getTickets().stream()
 			.filter(ticket -> !ticket.isDeleted())
